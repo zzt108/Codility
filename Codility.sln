@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoTask", "DemoTask\DemoTask.csproj", "{B66AF7D4-DFCF-452D-A3E3-90C5363FF99E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonthsAndWeeks", "MoviStar\MonthsAndWeeks.csproj", "{E5A390E8-13F2-4067-9FB2-99DDFD4BACF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonthsAndWeeks", "MonthsAndWeeks\MonthsAndWeeks.csproj", "{E5A390E8-13F2-4067-9FB2-99DDFD4BACF8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryGap", "BinaryGap\BinaryGap.csproj", "{067456C0-086C-46A8-B37F-1405717B7BFC}"
 EndProject
