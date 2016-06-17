@@ -4,10 +4,10 @@ using NUnit.Framework;
 
 namespace PrefixMaxProd
 {
-    // 160617 9:55 - 10:16
-    //https://codility.com/demo/results/trainingSY6MXX-FBV/
-    /*
-     A prefix of a string S is any leading contiguous part of S. For example, "c" and "cod" are prefixes of the string "codility". For simplicity, we require prefixes to be non-empty.
+  // 160617 9:55 - 10:16
+  //https://codility.com/demo/results/trainingSY6MXX-FBV/
+  /*
+   A prefix of a string S is any leading contiguous part of S. For example, "c" and "cod" are prefixes of the string "codility". For simplicity, we require prefixes to be non-empty.
 
 The product of prefix P of string S is the number of occurrences of P multiplied by the length of P. More precisely, if prefix P consists of K characters and P occurs exactly T times in S, then the product equals K * T.
 
@@ -42,70 +42,90 @@ Complexity:
 expected worst-case time complexity is O(N);
 expected worst-case space complexity is O(N) (not counting the storage required for input arguments).*/
 
-    class Solution {
-        public int solution(string S)
-        {
-            const int maxResult = 1000000000;
-
-            int result = 0;
-            for (var i = 1; i <= S.Length; i++)
-            {
-                var prefix = GetPrefix(S, i);
-                int prod = GetProd(S, prefix);
-                if (prod > maxResult)
-                {
-                    return maxResult;
-                }
-                result = Math.Max(result, prod);
-
-            }
-            return result;
-        }
-
-        private int GetProd(string s, string prefix)
-        {
-            int occurence = 1;
-            var length = prefix.Length;
-            for (int i = 1; i < s.Length; i++)
-            {
-                if (s.Length >= i+length && s.Substring(i,length) == prefix)
-                {
-                    occurence++;
-                }
-            }
-            return occurence*length;
-        }
-
-        private static string GetPrefix(string s, int i)
-        {
-            return s.Substring(0,i);
-        }
-    }
-
-
-
-    [TestFixture]
-    public class NUnitTest1
+  public class Solution
+  {
+    public int solution(string S)
     {
-        [Test]
-        public void TestDefault()
+      const int maxResult = 1000000000;
+
+      int result = 0;
+      for (var i = 1; i <= S.Length; i++)
+      {
+        var prefix = GetPrefix(S, i);
+        int prod = GetProd(S, prefix);
+        if (prod > maxResult)
         {
-            Assert.That(new Solution().solution("abababa"), Is.EqualTo(10));
-            Assert.That(new Solution().solution("aaa"), Is.EqualTo(4));
-            Assert.That(new Solution().solution(""), Is.EqualTo(0));
-
-            Assert.That(new Solution().solution(Concat("aaaaa", 1000)), Is.EqualTo(6252500));
+          return maxResult;
         }
+        result = Math.Max(result, prod);
 
-        private static string Concat(string s, int count)
-        {
-            var result = new StringBuilder(s.Length*count);
-
-            for (int i = 0; i < count; i++)
-            {
-                result.Append(s);
-            }
-            return result.ToString();
-        }
+      }
+      return result;
     }
+
+    private bool CheckPref(char[] sb, int pos, string prefix)
+    {
+      var offset = 0;
+      var length = prefix.Length;
+      for (var index = 0; index < length; index++)
+      {
+        var c = prefix[index];
+        if (sb[pos + offset] != c)
+        {
+          return false;
+        }
+        offset++;
+      }
+      return true;
+    }
+
+    private int GetProd(string s, string prefix)
+    {
+      var sb = s.ToCharArray();
+      int occurence = 1;
+      var length = prefix.Length;
+      var searchLength = s.Length;
+      for (var i = 1; i < searchLength; i++)
+      {
+        //var substring = s.Substring(i, length);
+        if (searchLength >= i + length && CheckPref(sb, i, prefix))
+        {
+          occurence++;
+        }
+      }
+      return occurence * length;
+    }
+
+    private static string GetPrefix(string s, int i)
+    {
+      return s.Substring(0, i);
+    }
+  }
+
+
+
+  [TestFixture]
+  public class NUnitTest1
+  {
+    [Test]
+    public void TestDefault()
+    {
+      //Assert.That(new Solution().solution(""), Is.EqualTo(0));
+      Assert.That(new Solution().solution("aaa"), Is.EqualTo(4));
+      Assert.That(new Solution().solution("abababa"), Is.EqualTo(10));
+
+      Assert.That(new Solution().solution(Concat("aaaaa", 1000)), Is.EqualTo(6252500));
+    }
+
+    private static string Concat(string s, int count)
+    {
+      var result = new StringBuilder(s.Length * count);
+
+      for (int i = 0; i < count; i++)
+      {
+        result.Append(s);
+      }
+      return result.ToString();
+    }
+  }
 }
